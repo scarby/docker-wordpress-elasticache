@@ -9,4 +9,4 @@ RUN apt-get update && apt-get install -y libxml2-dev wget && docker-php-ext-inst
 
 RUN curl -s https://elasticache-downloads.s3.amazonaws.com/ClusterClient/PHP-7.0/latest-64bit > AmazonElastiCacheClusterClient-1.0.0-PHP70-64bit.tgz && \
     sudo mv artifact/amazon-elasticache-cluster-client.so /usr/lib/php/20151012 && \
-    echo "extension=amazon-elasticache-cluster-client.so" | sudo tee --append /etc/php/7.0/cli/php.ini && \
+    echo "extension=amazon-elasticache-cluster-client.so" | sudo tee --append /etc/php/7.0/cli/php.ini
