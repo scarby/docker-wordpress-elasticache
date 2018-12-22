@@ -1,4 +1,4 @@
-FROM wordpress:php7.2-apache
+FROM wordpress:php7.0-apache
 
 WORKDIR /opt
 
@@ -8,5 +8,5 @@ ADD files/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 RUN apt-get update && apt-get install -y libxml2-dev wget && docker-php-ext-install soap
 
 RUN curl -s https://elasticache-downloads.s3.amazonaws.com/ClusterClient/PHP-7.0/latest-64bit > AmazonElastiCacheClusterClient-1.0.0-PHP70-64bit.tgz && \
-    pecl install AmazonElastiCacheClusterClient-1.0.0-PHP70-64bit.tgz && \
-    echo "extension=/usr/local/lib/php/extensions/no-debug-non-zts-20131226/amazon-elasticache-cluster-client.so" | tee /usr/local/etc/php/conf.d/memcached.ini
+    sudo mv artifact/amazon-elasticache-cluster-client.so /usr/lib/php/20151012 && \
+    echo "extension=amazon-elasticache-cluster-client.so" | sudo tee --append /etc/php/7.0/cli/php.ini && \
