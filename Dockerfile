@@ -7,10 +7,6 @@ ADD files/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 RUN apt-get update && apt-get install -y libxml2-dev wget && docker-php-ext-install soap
 
-RUN  apt-get update \
-  && apt-get install -y wget \
-  && rm -rf /var/lib/apt/lists/*
-
-RUN wget https://elasticache-downloads.s3.amazonaws.com/ClusterClient/PHP-7.0/latest-64bit > ec.tgz && \
-    pecl install ec.tgz && \
+RUN curl -s https://elasticache-downloads.s3.amazonaws.com/ClusterClient/PHP-7.0/latest-64bit > AmazonElastiCacheClusterClient-1.0.0-PHP70-64bit.tgz && \
+    pecl install AmazonElastiCacheClusterClient-1.0.0-PHP70-64bit.tgz && \
     echo "extension=/usr/local/lib/php/extensions/no-debug-non-zts-20131226/amazon-elasticache-cluster-client.so" | tee /usr/local/etc/php/conf.d/memcached.ini
