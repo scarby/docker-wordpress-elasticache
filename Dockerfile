@@ -1,4 +1,4 @@
-FROM wordpress:php5.6-apache
+FROM wordpress:php7.2-apache
 
 WORKDIR /opt
 
