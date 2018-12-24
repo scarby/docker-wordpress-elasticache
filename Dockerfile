@@ -1,4 +1,4 @@
-FROM wordpress:php7.2-apache
+FROM wordpress:php7.0-apache
 
 WORKDIR /opt
 
@@ -13,7 +13,7 @@ RUN apt-get  update && apt-get install -y newrelic-php5
 
 RUN curl -s https://s3.amazonaws.com/elasticache-downloads/ClusterClient/PHP-7.0/latest-64bit > latest-64bit && \
     tar -zxvf latest-64bit && \
-    mv artifact/amazon-elasticache-cluster-client.so /usr/local/lib/php/20151012 && \
+    mv artifact/amazon-elasticache-cluster-client.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012/ && \
     echo "extension=amazon-elasticache-cluster-client.so" | tee /usr/local/etc/php/conf.d/memcached.ini && \
     rm -rf latest-64bit artifact
 
