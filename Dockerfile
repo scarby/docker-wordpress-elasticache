@@ -7,16 +7,8 @@ ADD files/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 RUN apt-get update && apt-get install -y libxml2-dev wget gnupg && docker-php-ext-install soap
 
-RUN wget -O - https://download.newrelic.com/548C16BF.gpg | apt-key add - && sh -c 'echo "deb http://apt.newrelic.com/debian/ newrelic non-free" > /etc/apt/sources.list.d/newrelic.list'
-
-RUN apt-get  update && apt-get install -y newrelic-php5
-
 RUN curl -s https://s3.amazonaws.com/elasticache-downloads/ClusterClient/PHP-7.0/latest-64bit > latest-64bit && \
     tar -zxvf latest-64bit && \
     mv artifact/amazon-elasticache-cluster-client.so /usr/local/lib/php/20151012 && \
     echo "extension=amazon-elasticache-cluster-client.so" | tee /usr/local/etc/php/conf.d/memcached.ini && \
     rm -rf latest-64bit artifact
-
-RUN newrelic-install install
-
-ADD files/newrelic.ini /usr/local/etc/php/conf.d/newrelic.ini
